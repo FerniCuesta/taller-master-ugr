@@ -1,14 +1,16 @@
 # taller-master-ugr
 A repository to showcase how GitHub works to master students
 
-# Newbie Level Exercises
+# Newbie Level Exercise
 
-Welcome to the Newbie level! These exercises will help you get started with basic Git commands and workflows.
+Welcome to the Newbie level! This exercise will help you get started with basic Git commands, branching, and remote operations.
 
-## Exercise 1 - Basic Git Commands and Repository Setup
-**Objective**: Learn to initialize repositories, make commits, and check repository status.
+## Exercise - Fundamentals of Git: Commands, Branches & Remote Operations
+**Objective**: Master essential Git commands including init, clone, add, commit, status, log, branch creation/switching, and basic remote operations (push, pull).
 
 **Tasks**:
+
+### Part 1: Repository Setup and Basic Commands
 1. Configure your Git identity:
    ```bash
    git config --global user.name "Your Name"
@@ -29,15 +31,7 @@ Welcome to the Newbie level! These exercises will help you get started with basi
    * Use `git commit -m "Add hello.txt with my name"` to commit
    * Use `git log` to view your commit history
 
-**Success Criteria**: 
-- You have successfully cloned the repository
-- You can view the status of your working directory
-- You have made at least one commit with a meaningful message
-
-## Exercise 2 - Create and Switch Branches & Basic Remote Operations
-**Objective**: Learn to create branches, switch between them, and push changes to remote.
-
-**Tasks**:
+### Part 2: Branches and Remote Operations
 1. Create a new branch called `feature/my-info`:
    ```bash
    git branch feature/my-info
@@ -61,17 +55,20 @@ Welcome to the Newbie level! These exercises will help you get started with basi
    git push origin feature/my-info
    ```
 
-5. Switch back to the main branch:
+5. Switch back to the newbie branch:
    ```bash
-   git checkout main
+   git checkout newbie
    ```
 
 6. Pull the latest changes from remote:
    ```bash
-   git pull origin main
+   git pull origin newbie
    ```
 
 **Success Criteria**:
+- You have successfully cloned the repository
+- You can view the status of your working directory and commit history
+- You have made at least two commits with meaningful messages
 - You have created and switched between branches
 - Your feature branch exists on the remote repository
 - You understand the difference between local and remote branches
@@ -111,13 +108,12 @@ git checkout -b group-A-outcomes/newbie
    ```
 
 2. **Fill out `OUTCOMES.md`** with:
-   - **Exercise 1 Documentation**:
-     - Commands you used (config, clone, add, commit, status, log)
+   - **Exercise Documentation**:
+     - **Part 1**: Commands you used (config, clone, add, commit, status, log)
      - Output from `git log` showing your commits
      - Screenshot or output of `git status`
    
-   - **Exercise 2 Documentation**:
-     - Commands for creating and switching branches
+     - **Part 2**: Commands for creating and switching branches, and remote operations
      - Output from `git branch -a` showing your branches
      - Output from `git log --oneline --graph --all`
      - Screenshot showing your branch on GitHub
@@ -157,14 +153,12 @@ If your instructor requires it:
 
 ### What to Include in Your Documentation
 
-✅ **For Exercise 1**:
+✅ **For This Exercise**:
 - Git configuration commands
 - Clone command and output
 - At least 3 commits demonstrating add/commit workflow
 - Git log output
 - Git status at different stages
-
-✅ **For Exercise 2**:
 - Branch creation commands
 - Output showing local and remote branches
 - Push command and confirmation
@@ -184,8 +178,8 @@ Your newbie level work will be evaluated on:
 
 | Criterion | Weight | What We're Looking For |
 |-----------|--------|------------------------|
-| Completion | 20% | All exercises finished with documentation |
-| Understanding | 25% | Clear grasp of Git basics, staging area, branches |
+| Completion | 20% | Exercise finished with all parts completed and documented |
+| Understanding | 25% | Clear grasp of Git basics, staging area, branches, and remotes |
 | Practical Skills | 25% | Correct use of commands, clean commit history |
 | Problem-Solving | 20% | How you handled challenges and learned from them |
 | Documentation | 10% | Clear, complete, and well-organized submission |
