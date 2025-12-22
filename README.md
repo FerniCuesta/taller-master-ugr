@@ -1,19 +1,21 @@
 # taller-master-ugr
 A repository to showcase how GitHub works to master students
 
-# Intermediate Level Exercises
+# Intermediate Level Exercise
 
-Welcome to the Intermediate level! These exercises will teach you about merging, conflict resolution, tags, and advanced remote operations.
+Welcome to the Intermediate level! This exercise will teach you about merging branches, resolving conflicts, and using tags.
 
-## Exercise 1 - Merging Branches and Resolving Conflicts
-**Objective**: Learn to merge branches and handle merge conflicts effectively.
+## Exercise - Merging, Conflict Resolution, and Tagging
+**Objective**: Learn to merge branches, handle merge conflicts effectively, and create tags for version control.
 
 **Tasks**:
-1. Create two branches from main:
+
+### Part 1: Merging Branches and Resolving Conflicts
+1. Create two branches from intermediate:
    ```bash
-   git checkout main
+   git checkout intermediate
    git checkout -b feature/header
-   git checkout main
+   git checkout intermediate
    git checkout -b feature/footer
    ```
 
@@ -36,9 +38,9 @@ Welcome to the Intermediate level! These exercises will teach you about merging,
    git commit -m "Add footer to page"
    ```
 
-4. Merge both branches into main:
+4. Merge both branches into intermediate:
    ```bash
-   git checkout main
+   git checkout intermediate
    git merge feature/header
    git merge feature/footer  # This will create a conflict!
    ```
@@ -49,15 +51,7 @@ Welcome to the Intermediate level! These exercises will teach you about merging,
    * Stage the resolved file: `git add page.html`
    * Complete the merge: `git commit -m "Merge footer with resolved conflicts"`
 
-**Success Criteria**:
-- You can successfully merge branches without conflicts
-- You can identify and resolve merge conflicts
-- You understand the conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`)
-
-## Exercise 2 - Using Tags and Stashing Changes
-**Objective**: Learn to create tags for releases and temporarily save work with stash.
-
-**Tasks - Part A: Tags**:
+### Part 2: Using Tags
 1. Create an annotated tag for your current work:
    ```bash
    git tag -a v1.0 -m "First stable version with merged features"
@@ -78,72 +72,23 @@ Welcome to the Intermediate level! These exercises will teach you about merging,
    git push origin v1.0
    ```
 
-**Tasks - Part B: Stashing**:
-1. Start making changes to `page.html` (add a navigation section)
-
-2. Before committing, you need to switch branches urgently:
+5. Create a lightweight tag for testing:
    ```bash
-   git stash save "WIP: adding navigation"
+   git tag v1.0-test
    ```
 
-3. Your working directory is now clean. Switch to another branch and work there
-
-4. Come back and restore your work:
+6. Compare the two types of tags:
    ```bash
-   git checkout intermediate
-   git stash list  # See your stashed changes
-   git stash pop   # Apply and remove from stash
+   git show v1.0
+   git show v1.0-test
    ```
 
 **Success Criteria**:
-- You can create and push tags
-- You understand the difference between lightweight and annotated tags
-- You can stash and restore work-in-progress changes
-
-## Exercise 3 - Working with Multiple Remotes
-**Objective**: Learn to manage multiple remote repositories.
-
-**Tasks**:
-1. View your current remotes:
-   ```bash
-   git remote -v
-   ```
-
-2. Add a new remote (for example, a fork or backup):
-   ```bash
-   git remote add backup https://github.com/yourusername/taller-backup.git
-   ```
-
-3. List all remotes again:
-   ```bash
-   git remote -v
-   ```
-
-4. Fetch from a specific remote:
-   ```bash
-   git fetch backup
-   ```
-
-5. Push to a specific remote:
-   ```bash
-   git push backup intermediate
-   ```
-
-6. Rename a remote:
-   ```bash
-   git remote rename backup secondary
-   ```
-
-7. Remove a remote:
-   ```bash
-   git remote remove secondary
-   ```
-
-**Success Criteria**:
-- You can add, rename, and remove remotes
-- You understand the difference between `origin` and other remotes
-- You can fetch and push to specific remotes
-- You understand when multiple remotes are useful (forks, backups, upstream)
+- You can successfully merge branches without conflicts
+- You can identify and resolve merge conflicts
+- You understand the conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`)
+- You can create and push both annotated and lightweight tags
+- You understand the difference between tag types and when to use each
 
 ---
 
@@ -151,7 +96,7 @@ Welcome to the Intermediate level! These exercises will teach you about merging,
 
 ### Congratulations on completing the Intermediate Level! 🎉
 
-You've mastered merging, conflict resolution, and advanced remote operations. Time to document your achievements!
+You've mastered merging, conflict resolution, and tagging. Time to document your achievements!
 
 ### Step 1: Create Your Outcome Branch
 
@@ -172,36 +117,30 @@ git checkout -b group-X-outcomes/intermediate
 
 2. **Complete `OUTCOMES.md`** with:
    
-   **Exercise 1 - Merging & Conflicts**:
+   **Part 1 - Merging & Conflicts**:
    - Commands used to create branches and make conflicting changes
    - Output from `git merge` showing the conflict
    - The conflict markers you saw in your file
    - How you resolved the conflict
    - `git log --graph --oneline --all` showing merge commit
    
-   **Exercise 2 - Tags & Stashing**:
-   - Commands for creating annotated tags
+   **Part 2 - Tags**:
+   - Commands for creating annotated and lightweight tags
    - Output from `git tag` and `git show v1.0`
-   - Demonstration of stash workflow
-   - Output from `git stash list` and `git stash show`
-   
-   **Exercise 3 - Multiple Remotes**:
-   - Output from `git remote -v` before and after adding remotes
-   - Commands for adding, renaming, removing remotes
-   - Demonstration of fetch/push to specific remotes
-   - Explanation of when multiple remotes are useful
+   - Comparison between annotated and lightweight tags
+   - Explanation of when to use each type of tag
 
 3. **Document your challenges**:
    - How did you approach your first merge conflict?
-   - Any confusion about when to use stash vs. commit?
-   - Difficulties understanding remote tracking?
+   - Any difficulties understanding conflict markers?
+   - Confusion about when to use annotated vs. lightweight tags?
    - What resources did you use to solve problems?
 
 4. **Reflect deeply**:
    - How does merge conflict resolution work?
    - When would you use tags in a real project?
-   - Why is stash useful instead of always committing?
-   - Real-world scenarios for multiple remotes (forks, open source, etc.)
+   - What's the difference between tags and branches?
+   - How do tags help with versioning and releases?
 
 ### Step 3: Commit Your Documentation
 
@@ -222,24 +161,18 @@ Submit a PR with title: "Outcomes: Group X - Intermediate Level"
 
 ### What to Include
 
-✅ **Exercise 1 Requirements**:
+✅ **Part 1 Requirements**:
 - At least 2 branches with conflicting changes
 - Screenshot or output showing conflict markers
 - Resolution strategy explained
 - Merge commit in git log
 - `git log --graph` showing branch structure
 
-✅ **Exercise 2 Requirements**:
-- At least 1 annotated tag created
-- Tag information with `git show`
-- Stash workflow demonstration (save, list, pop)
-- Example scenario where stash was useful
-
-✅ **Exercise 3 Requirements**:
-- At least 2 remotes configured
-- All remote management commands demonstrated
-- Explanation of fetch vs. pull
-- Real-world use case for multiple remotes
+✅ **Part 2 Requirements**:
+- At least 1 annotated tag and 1 lightweight tag created
+- Tag information with `git show` for both types
+- Comparison explaining the differences
+- When to use each type of tag
 
 ✅ **General Requirements**:
 - Complete command history with outputs
@@ -252,10 +185,10 @@ Submit a PR with title: "Outcomes: Group X - Intermediate Level"
 
 | Criterion | Weight | Key Focus for Intermediate Level |
 |-----------|--------|----------------------------------|
-| Completion | 20% | All 3 exercises with full documentation |
-| Understanding | 25% | Merge strategies, conflict resolution, remote concepts |
-| Practical Skills | 25% | Clean conflict resolution, proper tag/stash usage |
-| Problem-Solving | 20% | How you debugged conflicts and remote issues |
+| Completion | 20% | Exercise completed with all parts and full documentation |
+| Understanding | 25% | Merge strategies, conflict resolution, and tag concepts |
+| Practical Skills | 25% | Clean conflict resolution and proper tag usage |
+| Problem-Solving | 20% | How you debugged conflicts and resolved issues |
 | Documentation | 10% | Clear explanations of complex operations |
 
 **Minimum score to advance to Master level**: 75/100
@@ -271,13 +204,10 @@ Submit a PR with title: "Outcomes: Group X - Intermediate Level"
 - Can you explain when to use each?
 - Did you try pushing tags? What happened?
 
-💡 **Stash Confusion**:
-- Did stash pop cause any conflicts?
-- When would stash apply be better than pop?
-
-💡 **Remote Tracking**:
-- What's the difference between `git fetch` and `git pull`?
-- How do tracking branches work?
+💡 **Tag Types**:
+- What's the difference between annotated and lightweight tags?
+- When should you use each type?
+- How do you push tags to remote?
 
 ### Tips for Success
 
@@ -291,10 +221,9 @@ Submit a PR with title: "Outcomes: Group X - Intermediate Level"
 
 - Merge conflicts: https://git-scm.com/docs/git-merge
 - Tags: https://git-scm.com/book/en/v2/Git-Basics-Tagging
-- Stash: https://git-scm.com/docs/git-stash
-- Remotes: https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes
+- Conflict resolution: https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
 
 ---
 
-**Next Steps**: Once you've mastered these skills, move to the `master` branch for advanced Git techniques including rewriting history, advanced branching strategies, and Git hooks!
+**Next Steps**: Once you've mastered these skills, move to the `master` branch for advanced Git techniques including rewriting history with rebase and amend!
 
