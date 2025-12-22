@@ -1,14 +1,16 @@
 # taller-master-ugr
 A repository to showcase how GitHub works to master students
 
-# Master Level Exercises
+# Master Level Exercise
 
-Welcome to the Master level! These advanced exercises will teach you about rewriting Git history, advanced branching strategies, and using Git hooks for automation.
+Welcome to the Master level! This advanced exercise will teach you about rewriting Git history using rebase and amend commits.
 
-## Exercise 1 - Rewriting History (Rebase, Amend, and Interactive Rebase)
-**Objective**: Learn to rewrite Git history safely and effectively using rebase and amend.
+## Exercise - Rewriting History (Rebase and Amend Commits)
+**Objective**: Learn to rewrite Git history safely and effectively using rebase and amend to create clean, professional commit histories.
 
-**Tasks - Part A: Amending Commits**:
+**Tasks**:
+
+### Part 1: Amending Commits
 1. Create a new file `config.txt` with some configuration:
    ```bash
    echo "version=1.0" > config.txt
@@ -28,7 +30,7 @@ Welcome to the Master level! These advanced exercises will teach you about rewri
    git log --oneline -n 3
    ```
 
-**Tasks - Part B: Interactive Rebase**:
+### Part 2: Interactive Rebase for Cleaning Up History
 1. Create multiple commits:
    ```bash
    echo "Feature A" > featureA.txt
@@ -48,7 +50,8 @@ Welcome to the Master level! These advanced exercises will teach you about rewri
    ```bash
    git rebase -i HEAD~3
    ```
-   * In the editor, change the third commit from `pick` to `fixup` to squash it into the first
+   * In the editor, change the third commit from `pick` to `fixup` (or `f`) to squash it into the first
+   * You can also use `reword` (or `r`) to change commit messages
    * Save and close the editor
 
 3. Verify your cleaned history:
@@ -56,182 +59,49 @@ Welcome to the Master level! These advanced exercises will teach you about rewri
    git log --oneline -n 5
    ```
 
-**Tasks - Part C: Rebase a Branch**:
-1. Create a feature branch and make commits
-2. Meanwhile, main branch has advanced
-3. Rebase your feature branch onto the latest main:
+### Part 3: Rebasing a Branch
+1. Create a feature branch and make commits:
    ```bash
-   git checkout feature-branch
-   git rebase main
+   git checkout -b feature/awesome-feature
+   echo "Awesome Feature" > awesome.txt
+   git add awesome.txt
+   git commit -m "Add awesome feature"
    ```
+
+2. Switch back to master and make a change to simulate main branch advancement:
+   ```bash
+   git checkout master
+   echo "Master update" > master-update.txt
+   git add master-update.txt
+   git commit -m "Update on master branch"
+   ```
+
+3. Rebase your feature branch onto the latest master:
+   ```bash
+   git checkout feature/awesome-feature
+   git rebase master
+   ```
+
+4. View the history graph to see the linear history:
+   ```bash
+   git log --graph --oneline --all -n 10
+   ```
+
+### Part 4: Understanding the Risks
+1. Examine the commit SHAs before and after rebase/amend
+2. Understand why you should NEVER rewrite public/shared history
+3. Practice the safe workflow:
+   * Rewrite history only on private branches
+   * Use `git push --force-with-lease` if you must push rewritten history
+   * Document when you've rewritten history
 
 **Success Criteria**:
 - You can amend the last commit without creating a new one
-- You can use interactive rebase to squash, reword, or reorder commits
+- You can use interactive rebase to squash, fixup, reword, or reorder commits
 - You understand when to use rebase vs merge
-- You know the dangers of rewriting public history
-
-## Exercise 2 - Advanced Branching Strategies
-**Objective**: Understand and implement professional branching strategies like Git Flow and GitHub Flow.
-
-**Tasks - Part A: Implement Git Flow Pattern**:
-1. Set up the branch structure:
-   ```bash
-   git checkout -b develop        # Development branch
-   git checkout -b feature/login  # Feature branch
-   ```
-
-2. Work on the feature:
-   * Make commits to `feature/login`
-   * When complete, merge into develop:
-   ```bash
-   git checkout develop
-   git merge --no-ff feature/login -m "Merge feature: login system"
-   ```
-
-3. Prepare a release:
-   ```bash
-   git checkout -b release/v1.0
-   # Make any final adjustments
-   echo "1.0.0" > VERSION
-   git add VERSION
-   git commit -m "Bump version to 1.0.0"
-   ```
-
-4. Merge release to main and develop:
-   ```bash
-   git checkout main
-   git merge --no-ff release/v1.0
-   git tag -a v1.0.0 -m "Release version 1.0.0"
-   
-   git checkout develop
-   git merge --no-ff release/v1.0
-   ```
-
-5. Create a hotfix if needed:
-   ```bash
-   git checkout main
-   git checkout -b hotfix/security-patch
-   # Fix the issue
-   git checkout main
-   git merge --no-ff hotfix/security-patch
-   git checkout develop
-   git merge --no-ff hotfix/security-patch
-   ```
-
-**Tasks - Part B: GitHub Flow**:
-1. Start from main:
-   ```bash
-   git checkout main
-   git pull origin main
-   ```
-
-2. Create a descriptive branch:
-   ```bash
-   git checkout -b add-user-profile
-   ```
-
-3. Make commits and push regularly:
-   ```bash
-   git push -u origin add-user-profile
-   ```
-
-4. Open a Pull Request on GitHub (simulate this)
-
-5. After review and CI passes, merge to main
-
-**Success Criteria**:
-- You understand the difference between Git Flow and GitHub Flow
-- You can implement feature branches, release branches, and hotfixes
-- You understand when to use `--no-ff` for merges
-- You can choose the appropriate strategy for your project
-
-## Exercise 3 - Using Git Hooks for Automation
-**Objective**: Create and use Git hooks to automate checks and enforce policies.
-
-**Tasks - Part A: Create a Pre-Commit Hook**:
-1. Navigate to the hooks directory:
-   ```bash
-   cd .git/hooks
-   ```
-
-2. Create a pre-commit hook to check for debug statements:
-   ```bash
-   # Create pre-commit file (on Windows, create pre-commit without extension)
-   cat > pre-commit << 'EOF'
-   #!/bin/sh
-   # Check for console.log or debugger statements
-   
-   if git diff --cached --name-only | grep -E '\.(js|ts)$' > /dev/null; then
-       if git diff --cached | grep -E '(console\.log|debugger)'; then
-           echo "Error: Found debug statements. Please remove them before committing."
-           exit 1
-       fi
-   fi
-   
-   echo "Pre-commit checks passed!"
-   exit 0
-   EOF
-   
-   chmod +x pre-commit
-   ```
-
-3. Test the hook:
-   * Try to commit a file with `console.log` - it should fail
-   * Remove the debug statement and commit - it should succeed
-
-**Tasks - Part B: Create a Commit-Msg Hook**:
-1. Create a commit-msg hook to enforce commit message format:
-   ```bash
-   cat > commit-msg << 'EOF'
-   #!/bin/sh
-   # Enforce commit message format: "TYPE: Description"
-   # Valid types: feat, fix, docs, style, refactor, test, chore
-   
-   commit_msg=$(cat "$1")
-   pattern="^(feat|fix|docs|style|refactor|test|chore): .+"
-   
-   if ! echo "$commit_msg" | grep -E "$pattern" > /dev/null; then
-       echo "Error: Commit message must match format 'TYPE: Description'"
-       echo "Valid types: feat, fix, docs, style, refactor, test, chore"
-       echo "Example: 'feat: Add user authentication'"
-       exit 1
-   fi
-   
-   exit 0
-   EOF
-   
-   chmod +x commit-msg
-   ```
-
-2. Test with different commit messages
-
-**Tasks - Part C: Create a Pre-Push Hook**:
-1. Create a pre-push hook to run tests:
-   ```bash
-   cat > pre-push << 'EOF'
-   #!/bin/sh
-   # Run tests before pushing
-   
-   echo "Running tests before push..."
-   
-   # Uncomment and modify based on your project:
-   # npm test
-   # python -m pytest
-   # mvn test
-   
-   echo "Pre-push checks passed!"
-   exit 0
-   EOF
-   
-   chmod +x pre-push
-   ```
-
-**Success Criteria**:
-- You can create and modify Git hooks
-- You understand the different hook types (pre-commit, commit-msg, pre-push, etc.)
-- You can use hooks to enforce code quality and team standards
-- You understand that hooks are local and not pushed to the repository
+- You can rebase a feature branch onto an updated main branch
+- You know the dangers of rewriting public history and how to avoid them
+- You understand the difference between `git push --force` and `git push --force-with-lease`
 
 ---
 
@@ -239,7 +109,7 @@ Welcome to the Master level! These advanced exercises will teach you about rewri
 
 ### Congratulations on completing the Master Level! 🎉
 
-You've mastered advanced Git techniques including history rewriting, branching strategies, and automation with hooks. Now demonstrate your expertise!
+You've mastered advanced Git techniques including history rewriting with rebase and amend. Now demonstrate your expertise!
 
 ### Step 1: Create Your Outcome Branch
 
@@ -258,86 +128,69 @@ git checkout -b group-X-outcomes/master
 
 2. **Complete `OUTCOMES.md`** with comprehensive documentation:
 
-   **Exercise 1 - Rewriting History**:
-   - **Amend demonstration**: Show before/after of `git commit --amend`
-   - **Interactive rebase**: Full walkthrough of `git rebase -i`
-     - Output showing pick/squash/fixup/reword options
-     - Before and after git log comparison
-   - **Rebase vs merge**: Explain when to use each, with examples
-   - Important: Document the dangers of rewriting public history
+   **Part 1 - Amending Commits**:
+   - Commands used for amend operations
+   - Git log output before and after amend
+   - Comparison of commit SHAs to show history was rewritten
    
-   **Exercise 2 - Advanced Branching Strategies**:
-   - **Git Flow implementation**:
-     - Diagram or description of your branch structure
-     - Commands for develop, feature, release, hotfix branches
-     - `git log --graph --all --oneline` showing the strategy
-   - **GitHub Flow demonstration**:
-     - Feature branch workflow
-     - Commands and process
-   - **Comparison**: When to use Git Flow vs GitHub Flow
+   **Part 2 - Interactive Rebase**:
+   - Commands and editor interactions for interactive rebase
+   - Demonstration of fixup, reword, and other rebase operations
+   - Git log output showing cleaned-up history before and after
    
-   **Exercise 3 - Git Hooks**:
-   - **Pre-commit hook**: Full script content and test results
-   - **Commit-msg hook**: Script content and validation examples
-   - **Pre-push hook**: Script content and demonstration
-   - Screenshots of hooks preventing bad commits
-   - Explanation of hook lifecycle and when each fires
-
+   **Part 3 - Rebasing a Branch**:
+   - Commands for creating feature branch and rebasing onto master
+   - `git log --graph --all --oneline` showing linear history after rebase
+   - Explanation of how rebase differs from merge
+   
+   **Part 4 - Understanding Risks**:
+   - Documentation of how commit SHAs change during rebase
+   - Explanation of why rewriting public/shared history is dangerous
+   - Best practices for safe history rewriting
+   - Difference between `--force` and `--force-with-lease`
 3. **Advanced challenges documentation**:
    - Rebase conflicts: How did you resolve them?
-   - Interactive rebase mistakes: Any lost commits? How recovered?
-   - Hook debugging: Issues with script execution or permissions?
-   - Branching strategy choice: Why did you choose certain approaches?
+   - Interactive rebase mistakes: Any issues? How did you recover?
+   - Force push understanding: When to use `--force` vs `--force-with-lease`?
+   - Real-world scenarios where you'd choose rebase over merge
 
 4. **Deep reflection** (minimum 200 words):
    - When is it safe to rewrite history? When is it dangerous?
-   - How do branching strategies support team collaboration?
-   - What role do hooks play in maintaining code quality?
-   - How would you implement these in a professional setting?
+   - How does rebase help create clean, professional commit histories?
+   - What's the fundamental difference between rebase and merge?
+   - How would you implement history-rewriting workflows in a professional team setting?
+   - Why is it important to never rewrite public/shared history?
 
-### Step 3: Package Your Hooks
-
-Create a `hooks/` directory with your hook scripts:
-
-```bash
-mkdir hooks
-cp .git/hooks/pre-commit hooks/
-cp .git/hooks/commit-msg hooks/
-cp .git/hooks/pre-push hooks/
-git add hooks/
-```
-
-### Step 4: Commit and Push
+### Step 3: Commit and Push
 
 ```bash
-git add OUTCOMES.md hooks/
+git add OUTCOMES.md
 git commit -m "docs: Add master level exercise outcomes for Group X"
 git push origin group-X-outcomes/master
 ```
 
 ### What to Include
 
-✅ **Exercise 1 Requirements**:
-- Minimum 3 commits demonstrating amend
-- Interactive rebase with at least 4 operations (squash, fixup, reword, reorder)
-- Side-by-side comparison of rebase vs merge for same scenario
-- Explanation of when each technique is appropriate
-- Warning documentation about rewriting public history
+✅ **Part 1 Requirements**:
+- Minimum 3 commits demonstrating amend functionality
+- Git log showing commit SHAs before and after amend
+- Explanation of how amend rewrites history
 
-✅ **Exercise 2 Requirements**:
-- Complete Git Flow cycle (feature → develop → release → main)
-- Hotfix demonstration
-- GitHub Flow demonstration with descriptive branches
-- Branch strategy comparison with pros/cons
-- `git log --graph` showing your branching patterns
+✅ **Part 2 Requirements**:
+- Interactive rebase with at least 4 operations (pick, squash, fixup, reword, etc.)
+- Before and after git log comparison
+- Documentation of what each rebase operation does
 
-✅ **Exercise 3 Requirements**:
-- Working pre-commit hook with test cases
-- Working commit-msg hook with test cases  
-- Working pre-push hook with test cases
-- Hook scripts included in `hooks/` directory
-- Documentation of what each hook validates
-- Evidence of hooks catching violations
+✅ **Part 3 Requirements**:
+- Complete demonstration of rebasing a feature branch
+- `git log --graph` showing linear history vs merge commit approach
+- Explanation of when rebase is preferable to merge
+
+✅ **Part 4 Requirements**:
+- Clear documentation of the dangers of rewriting public history
+- Examples of safe vs unsafe rebase scenarios
+- Explanation of `--force-with-lease` vs `--force`
+- Team workflow considerations for history rewriting
 
 ✅ **General Requirements**:
 - Complete command history for all operations
@@ -351,11 +204,11 @@ git push origin group-X-outcomes/master
 
 | Criterion | Weight | Key Focus for Master Level |
 |-----------|--------|----------------------------|
-| Completion | 20% | All 3 exercises with sophisticated implementations |
-| Understanding | 25% | Deep grasp of history rewriting, strategies, automation |
-| Practical Skills | 25% | Safe rebase usage, appropriate strategy selection, functional hooks |
-| Problem-Solving | 20% | Complex rebase conflicts, hook debugging, strategy decisions |
-| Documentation | 10% | Professional-quality explanations and artifacts |
+| Completion | 20% | Exercise completed with all parts and sophisticated implementations |
+| Understanding | 25% | Deep grasp of history rewriting, rebase vs merge trade-offs |
+| Practical Skills | 25% | Safe rebase usage, proper amend technique, clean histories |
+| Problem-Solving | 20% | Complex rebase conflicts, recovery from mistakes |
+| Documentation | 10% | Professional-quality explanations and clear demonstrations |
 
 **Minimum score to advance to Master of Universe level**: 80/100
 
@@ -364,39 +217,35 @@ git push origin group-X-outcomes/master
 🔴 **History Rewriting**:
 - Why is `git push --force` dangerous?
 - How do you coordinate rebases in a team?
-- What's the difference between `git reset` and `git revert`?
+- What's the difference between `git reset`, `git revert`, and `git rebase`?
 - When is interactive rebase the right tool?
+- How do you recover from a bad rebase?
 
-🔴 **Branching Strategies**:
-- How does your strategy support CI/CD?
-- What's the release process in each strategy?
-- How do hotfixes work in your chosen strategy?
-- What's the role of long-lived vs. short-lived branches?
-
-🔴 **Git Hooks**:
-- Why aren't hooks pushed to the repository?
-- How would you share hooks across a team?
-- What's the performance impact of complex hooks?
-- How do hooks integrate with CI/CD pipelines?
+🔴 **Rebase vs Merge**:
+- What's the fundamental difference in how they work?
+- When should you choose rebase over merge?
+- When should you choose merge over rebase?
+- How does each affect the project history?
+- What are the collaboration implications of each?
 
 ### Tips for Excellence
 
-🎯 Show, don't just tell - include comprehensive outputs  
-🎯 Create diagrams for branching strategies (ASCII art is fine!)  
-🎯 Test hooks thoroughly and document edge cases  
-🎯 Connect techniques to real-world professional scenarios  
-🎯 Demonstrate both correct usage and common mistakes  
-🎯 Include recovery procedures for mistakes  
+🎯 Show, don't just tell - include comprehensive command outputs  
+🎯 Document commit SHAs before and after rewrites  
+🎯 Create git log graphs showing history transformations  
+🎯 Test rebase in different scenarios and document results  
+🎯 Demonstrate both correct usage and common mistakes with recovery  
+🎯 Include real-world scenarios where these techniques are valuable  
 
 ### Resources
 
 - Git internals: https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain
 - Rewriting history: https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History
-- Git Flow: https://nvie.com/posts/a-successful-git-branching-model/
-- GitHub Flow: https://guides.github.com/introduction/flow/
-- Git Hooks: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
+- Git rebase: https://git-scm.com/docs/git-rebase
+- Interactive rebase: https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History#_changing_multiple
+- Rebase vs Merge: https://www.atlassian.com/git/tutorials/merging-vs-rebasing
 
 ---
 
-**Next Steps**: Ready for the ultimate challenge? Move to the `master-of-the-universe` branch for expert-level exercises on branch protection and security best practices!
+**Next Steps**: Ready for the ultimate challenge? Move to the `master-of-the-universe` branch for expert-level exercises on branch protection rules and security best practices with GPG signing!
 
