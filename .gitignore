@@ -135,7 +135,7 @@ test-*.txt
 practice-*.txt
 exercise-*.txt
 my-*.txt
-hello.txt
+# hello.txt # Why is this file being ignored? It's supposed to be tracked. 
 
 # Local hook test files
 hooks-test/
