@@ -30,8 +30,6 @@ git checkout -b feature/my-info
 touch my-info.txt
 git add my-info.txt
 git commit -m "Add personal information"
-git remote -v
-git remote set-url origin https://github.com/FerniCuesta/taller-master-ugr
 git push origin feature/my-info
 git checkout newbie
 git push -u origin newbie
@@ -413,12 +411,6 @@ Before submitting, ensure you have:
 
 ---
 
-**Submission Date**: [Date]
-**Ready for Review**: ✅ Yes / ❌ No
+**Submission Date**: [13/02/2026]
 
-````
-
-```
-
-```
-````
+**Ready for Review**: ✅ Yes
