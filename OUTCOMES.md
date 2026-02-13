@@ -18,7 +18,6 @@ En esta introducción a Git hemos realizado la configuración inicial de Git, in
 **Commands Used**:
 
 ```bash
-# List the key Git commands you used across all parts of the exercise
 git config --global user.name "Fernando Cuesta"
 git config --global user.email "fernandocuestab@gmail.com"
 git clone git@github.com:FerniCuesta/taller-master-ugr.git
@@ -39,12 +38,11 @@ git push -u origin newbie
 git pull origin newbie
 git checkout -b group-X-outcomes/newbie
 git checkout main -- OUTCOME_TEMPLATE.md
-# etc.
 ```
 
 **Results/Output**:
 
-```
+```bash
 $ git checkout
 feature/my-info                 master-of-the-universe          origin/master
 FETCH_HEAD                      newbie                          origin/master-of-the-universe
@@ -54,17 +52,17 @@ main                            origin/intermediate
 master                          origin/main
 ```
 
-```
+```bash
 $ git checkout feature/my-info
 Switched to branch 'feature/my-info'
 ```
 
-```
+```bash
 $ git checkout feature/my-info
 Switched to branch 'feature/my-info'
 ```
 
-```
+```bash
 $ git add my-info.txt
 git commit -m "Add personal information"
 [feature/my-info f431f6e] Add personal information
@@ -72,7 +70,7 @@ git commit -m "Add personal information"
  create mode 100644 my-info.txt
 ```
 
-```
+```bash
 $ git push origin feature/my-info
 Enumerating objects: 8, done.
 Counting objects: 100% (8/8), done.
@@ -89,29 +87,90 @@ To github.com:FerniCuesta/taller-master-ugr.git
  * [new branch]      feature/my-info -> feature/my-info
 ```
 
-```
+```bash
 $ git checkout newbie
 branch 'newbie' set up to track 'origin/newbie'.
 Switched to a new branch 'newbie'
 ```
 
-```
+```bash
 $ git pull origin newbie
 From github.com:FerniCuesta/taller-master-ugr
  * branch            newbie     -> FETCH_HEAD
 Already up to date.
 ```
 
-```
+```bash
 $ git checkout newbie
 Already on 'newbie'
 ```
 
-```
+````bash
+# Rama main
+$ git log
+
+
+```bash
+# Rama group-X-outcomes/newbie
+$ git log
+
+commit d990c135696002e391281509f7424229cb326dc2 (HEAD -> group-X-outcomes/newbie, origin/group-X-outcomes/newbie)
+Author: Fernando Cuesta <fernandocuestab@gmail.com>
+Date:   Thu Feb 12 23:57:17 2026 +0000
+
+    docs: Add newbie level exercise outcomes for Group X
+
+commit 360f4a4bc62dce8a00a239d4f5b32b94336fb072 (origin/newbie, newbie)
+Author: Miguel Angel Oltra <miguel.oltra@se.com>
+Date:   Mon Dec 22 09:41:22 2025 +0100
+
+    refactor: consolidate newbie exercises into single comprehensive exercise
+
+commit 5eedc97b386a1ed53906add09886cae3f46924ae
+Author: Miguel Angel Oltra <SESA219665@se.com>
+Date:   Sat Nov 29 12:08:59 2025 +0100
+
+    docs: Add submission instructions to newbie level
+
+commit 45e1c318443a778075a76f732824589fd922a845
+Author: Miguel Angel Oltra <SESA219665@se.com>
+Date:   Sat Nov 29 11:53:59 2025 +0100
+
+    Update README for newbie level exercises
+
+commit dc582031fed7a252a3c583fe16f497dbc9dcedd1
+Author: Miguel Angel Oltra <SESA219665@se.com>
+Date:   Sat Oct 25 12:14:28 2025 +0200
+
+    Revert "Update README.md"
+
+    This reverts commit e2db1ca85b4c8eca7b31d883744bd3a6f5e444b3.
+
+commit e2db1ca85b4c8eca7b31d883744bd3a6f5e444b3 (tag: v0.0.1)
+Author: Miguel A. Oltra <39242642+miguel-oltra@users.noreply.github.com>
+Date:   Sat Nov 30 16:54:41 2024 +0100
+
+    Update README.md
+
+commit 3d651c33cdfa92926d7706f05c9258ecd7e992db
+Author: Miguel A. Oltra <39242642+miguel-oltra@users.noreply.github.com>
+Date:   Sat Nov 30 16:53:44 2024 +0100
+
+    Update README.md
+
+commit 4cc5635bea477d934da36d0de8fb3c6c48ed14d5
+Author: Miguel A. Oltra <39242642+miguel-oltra@users.noreply.github.com>
+Date:   Sat Nov 30 16:33:07 2024 +0100
+
+    Initial commit
+
+````
+
 $ git checkout -b group-X-outcomes/newbie
 Your branch is up to date with 'origin/newbie'.
 Switched to a new branch 'group-X-outcomes/newbie'
-```
+
+````
 
 <!-- **Screenshots** (if applicable):
 
@@ -228,5 +287,6 @@ Before submitting, ensure you have:
 
 ---
 
-**Submission Date**: [Date]  
+**Submission Date**: [Date]
 **Ready for Review**: ✅ Yes / ❌ No
+````
