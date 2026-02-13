@@ -18,6 +18,17 @@ Completé el ejercicio de nivel intermedio donde aprendí a trabajar con fusione
 
 **Commands Used**:
 
+```bash
+git checkout
+git checkout -b
+git add
+git commit
+git merge
+git tag
+git log
+git show
+```
+
 **Results/Output**:
 
 ```bash
@@ -305,15 +316,17 @@ Rate your confidence level for each topic (1-5, where 5 is very confident):
 
 **Links to branches/commits**:
 
-- Link to your outcome branch: `https://github.com/miguel-oltra/taller-master-ugr/tree/group-X-outcomes/[level]`
+- Link to your outcome branch: `https://github.com/FerniCuesta/taller-master-ugr/tree/group-X-outcomes/intermediate`
+
 - Key commits demonstrating your work:
-  - Commit hash: [Short description]
-  - Commit hash: [Short description]
+  - 4f99bd1f03fdfa0ea2a4b01e498dd8b49d5dc076: Add header to page
+  - ff9dacfc6692a1717673216770989b01b77c6d0f: Add footer to page
+  - e331e2c8cb8178fa49e04fd46c98cd78a6737ef6: Merge footer with resolved conflicts
+  - 41467ae7a0f1a1b337a015d927f9d6d8ba852777: docs: Add intermediate level exercise outcomes for Group X
 
-**Additional files created** (if any):
+**Additional files created**:
 
-- File 1: [Description]
-- File 2: [Description]
+- page.html: Archivo creado en ambas ramas con contenido diferente para practicar la resolución de conflictos.
 
 ---
 
@@ -321,21 +334,17 @@ Rate your confidence level for each topic (1-5, where 5 is very confident):
 
 Before submitting, ensure you have:
 
-- [ ] Completed the exercise for your chosen level (including all parts)
-- [ ] Documented all commands used with their outputs
-- [ ] Described challenges and how you resolved them
-- [ ] Provided a thoughtful reflection on your learning
-- [ ] Self-assessed your confidence in each topic
-- [ ] Pushed your outcome branch to the remote repository
+- [x] Completed the exercise for your chosen level (including all parts)
+- [x] Documented all commands used with their outputs
+- [x] Described challenges and how you resolved them
+- [x] Provided a thoughtful reflection on your learning
+- [x] Self-assessed your confidence in each topic
+- [x] Pushed your outcome branch to the remote repository
 - [ ] Created a Pull Request (if required by your instructor)
 
 ---
 
 ## 📝 Additional Comments
-
-[Any additional thoughts, questions, or feedback about the exercises]
-
----
 
 **Submission Date**: [13/02/2026]
 
