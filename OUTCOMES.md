@@ -105,10 +105,45 @@ $ git checkout newbie
 Already on 'newbie'
 ```
 
-````bash
+```bash
+# Rama feature/my-info
+$ git log
+
+commit f431f6ea8df7168f5d28c2e5fccc6670c72b2681 (HEAD -> feature/my-info, origin/feature/my-info)
+Author: Fernando Cuesta <fernandocuestab@gmail.com>
+Date:   Thu Feb 12 22:39:37 2026 +0000
+
+    Add personal information
+
+commit ea6e83b51cdf2cc31e56e6ef2970b9f8f955a12a
+Author: Fernando Cuesta <fernandocuestab@gmail.com>
+Date:   Thu Feb 12 22:39:29 2026 +0000
+
+    Allow my-*.txt files in .gitignore
+```
+
+```bash
 # Rama main
 $ git log
 
+commit 38093d66e3fa926d3cd46182c9f5febb94ae1672 (HEAD -> main, origin/main, origin/HEAD)
+Author: Fernando Cuesta <fernandocuestab@gmail.com>
+Date:   Thu Feb 12 22:36:58 2026 +0000
+
+    Allow hello.txt in .gitignore
+
+commit 3b826d642885716fb793fe6383428ebdb9aeb10f
+Author: Fernando Cuesta <fernandocuestab@gmail.com>
+Date:   Thu Feb 12 22:35:00 2026 +0000
+
+    Add hello.txt with my name
+
+commit 9602351f9c1fe509f5153991511918a200c3664d
+Author: Miguel Angel Oltra <miguel.oltra@se.com>
+Date:   Mon Dec 22 10:27:09 2025 +0100
+
+    Adding GenAI guidelines
+```
 
 ```bash
 # Rama group-X-outcomes/newbie
@@ -164,18 +199,85 @@ Date:   Sat Nov 30 16:33:07 2024 +0100
 
     Initial commit
 
-````
+```
 
+```bash
 $ git checkout -b group-X-outcomes/newbie
 Your branch is up to date with 'origin/newbie'.
 Switched to a new branch 'group-X-outcomes/newbie'
+```
 
-````
+```bash
+$ git branch -a
+  feature/my-info
+* group-X-outcomes/newbie
+  main
+  newbie
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/feature/my-info
+  remotes/origin/group-X-outcomes/newbie
+  remotes/origin/intermediate
+  remotes/origin/main
+  remotes/origin/master
+  remotes/origin/master-of-the-universe
+  remotes/origin/newbie
+```
 
-<!-- **Screenshots** (if applicable):
+```bash
+$ git log --oneline --graph --all
+* 0ab09e1 (HEAD -> group-X-outcomes/newbie) docs: update OUTCOME.md
+* d990c13 (origin/group-X-outcomes/newbie) docs: Add newbie level exercise outcomes for Group X
+* 360f4a4 (origin/newbie, newbie) refactor: consolidate newbie exercises into single comprehensive exercise
+* 5eedc97 docs: Add submission instructions to newbie level
+* 45e1c31 Update README for newbie level exercises
+| * f431f6e (origin/feature/my-info, feature/my-info) Add personal information
+| * ea6e83b Allow my-*.txt files in .gitignore
+| * 38093d6 (origin/main, origin/HEAD, main) Allow hello.txt in .gitignore
+| * 3b826d6 Add hello.txt with my name
+| * 9602351 Adding GenAI guidelines
+| * 7ad3af4 docs: update main branch files to reflect consolidated exercise structure (1 per level)
+| * 4d9131e chore: remove instructor files from repository tracking
+| *   adbb307 Merge pull request #9 from miguel-oltra/patch-gitignore-update
+| |\
+| | * e4709e6 Updated CODEOWNERS file
+| | * 2a39a02 chore: add INSTRUCTOR_GUIDE.md to gitignore
+| | * 0abdbae chore: add SUMMARY.md to gitignore for instructor files
+| |/
+| * 88a54ab chore: Add .gitignore to exclude instructor files and sensitive data
+| * e39ff08 PROMPT for updated
+| * df1cfdd fix: Update CODEOWNERS to allow trainee work while protecting exercise branches
+| * a011fad config: Add CODEOWNERS file for code review requirements
+| * 769be64 docs: Add complete implementation summary
+| * 9d008fa Updated README.MD with guidelines for the exercises
+| * f66bf22 docs: Update MODEL_SPEC.MD with PROMPT 2 requirements
+| * c24fd57 docs: Add outcome submission process and evaluation criteria
+| * ec488d0 Update main README with complete training overview and navigation
+|/
+| * b0fb9dc (origin/master-of-the-universe) refactor: consolidate master-of-the-universe exercises into single comprehensive exercise
+| * d1ef79f docs: Add submission instructions to master-of-the-universe level
+| * 5bffa64 Update README for master-of-the-universe level exercises
+|/
+| * b5d8eb6 (origin/master) refactor: consolidate master exercises into single comprehensive exercise on history rewriting
+| * 960a0a6 docs: Add submission instructions to master level
+| * f0055a0 Update README for master level exercises
+|/
+| * 994450b (origin/intermediate) refactor: consolidate intermediate exercises into single comprehensive exercise
+| * a1c17e7 docs: Add submission instructions to intermediate level
+| * 9f25f7a Update README for intermediate level exercises
+|/
+* dc58203 Revert "Update README.md"
+* e2db1ca (tag: v0.0.1) Update README.md
+* 3d651c3 Update README.md
+* 4cc5635 Initial commit
+```
 
-- [Screenshot 1: Description]
-- [Screenshot 2: Description] -->
+**Screenshots**:
+
+- Output de `git status`:
+  ![Git Status](images/git_status.png)
+
+- Ramas en GitHub:
+  ![GitHub Branches](images/GitHub_branches.png)
 
 ---
 
@@ -217,6 +319,16 @@ Switched to a new branch 'group-X-outcomes/newbie'
 
 **Solution**: Para solucionar este problema, tuve que modificar el archivo .gitignore para eliminar las líneas que ignoraban esos archivos, lo que me permitió añadirlos al staging area, hacer commit y subirlos al repositorio remoto.
 
+### Challenge 3: Retos propuestos por el instructor
+
+**Problem**: El instructor propuso algunas cuestiones en cuanto a los retos, estas son las preguntas que me planteó:
+
+- Did you have SSH key issues? How did you resolve them?
+- Any confusion about staging vs. committing?
+- Problems with push/pull?
+
+**Solution**: No tuve problemas con las claves SSH, ya que ya tenía una configurada en mi máquina. En cuanto a la confusión entre staging y committing, así como a los problemas con push/pull, no tuve ningún problema, ya que estoy acostumbrado a usar Git y tengo experiencia con estas operaciones.
+
 ---
 
 ## 💭 Personal Reflection
@@ -232,6 +344,20 @@ Aprender a crear ramas y subirlas a GitHub es una habilidad fundamental que me s
 
 **How I would apply this in real projects**:
 En mi día a día como desarrollador, usaré (y uso) Git para gestionar el código de mis proyectos, así como para colaborar con otros desarrolladores.
+
+**Cuestiones del instructor**:
+
+- What did you learn about the three-tree architecture (working dir, staging, repo)?
+
+  He aprendido que el área de staging es un espacio intermedio entre el directorio de trabajo y el repositorio, donde se preparan los cambios antes de hacer un commit. Esto permite tener un control más granular sobre qué cambios se incluyen en cada commit.
+
+- When would you use branches in real projects?
+
+  Un caso en el que estoy acostumbrado a usar ramas es cuando estoy trabajando en una nueva funcionalidad o en una corrección de errores. Creo una rama específica para esa tarea, lo que me permite trabajar de forma aislada sin afectar el código principal hasta que esté listo para ser integrado.
+
+- What's the difference between local and remote repositories?
+
+  La diferencia principal es que un repositorio local es el que está en tu máquina, mientras que un repositorio remoto es el que está alojado en un servidor (como GitHub). El repositorio remoto permite compartir el código con otros desarrolladores y colaborar en proyectos.
 
 ---
 
@@ -257,13 +383,13 @@ Rate your confidence level for each topic (1-5, where 5 is very confident):
 
 - Link to your outcome branch: `https://github.com/FerniCuesta/taller-master-ugr/tree/newbie`
 - Key commits demonstrating your work:
-  - Commit hash: [Short description]
-  - Commit hash: [Short description]
+  - 3b826d642885716fb793fe6383428ebdb9aeb10f: Add hello.txt with my name
+  - f431f6ea8df7168f5d28c2e5fccc6670c72b2681: Add personal information
 
-<!-- **Additional files created** (if any):
+**Additional files created**:
 
-- File 1: [Description]
-- File 2: [Description] -->
+- File 1: [hello.txt - Archivo de texto con mi nombre. Creado para practicar el realizar un commit y verlo en el historial de commits.]
+- File 2: [my-info.txt - Archivo de texto con información personal. Creado para practicar el uso de ramas y subirlas a un repositorio remoto.]
 
 ---
 
@@ -271,13 +397,13 @@ Rate your confidence level for each topic (1-5, where 5 is very confident):
 
 Before submitting, ensure you have:
 
-- [ ] Completed the exercise for your chosen level (including all parts)
-- [ ] Documented all commands used with their outputs
-- [ ] Described challenges and how you resolved them
-- [ ] Provided a thoughtful reflection on your learning
-- [ ] Self-assessed your confidence in each topic
-- [ ] Pushed your outcome branch to the remote repository
-- [ ] Created a Pull Request (if required by your instructor)
+- [x] Completed the exercise for your chosen level (including all parts)
+- [x] Documented all commands used with their outputs
+- [x] Described challenges and how you resolved them
+- [x] Provided a thoughtful reflection on your learning
+- [x] Self-assessed your confidence in each topic
+- [x] Pushed your outcome branch to the remote repository
+- [] Created a Pull Request (if required by your instructor)
 
 ---
 
@@ -289,4 +415,10 @@ Before submitting, ensure you have:
 
 **Submission Date**: [Date]
 **Ready for Review**: ✅ Yes / ❌ No
+
+````
+
+```
+
+```
 ````
