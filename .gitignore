@@ -1,0 +1,37 @@
+# Ensure .gitignore includes common sensitive patterns:
+# .env files
+.env
+.env.local
+.env.*.local
+
+# API keys
+*.key
+*.pem
+
+# Credentials
+.credentials
+.aws/credentials
+
+# Private keys (.key, .pem files)
+*.key
+*.pem
+id_rsa*
+
+# OS and IDE
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
