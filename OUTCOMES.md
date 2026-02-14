@@ -58,6 +58,10 @@ Screenshots de la configuración de protección de ramas en GitHub para la rama 
 ![GitHub Branch Protection Rules Overview](images/github-branch-protection-rules-overview-1.png)
 ![GitHub Branch Protection Detailed Settings](images/github-branch-protection-rules-overview-2.png)
 
+Screenshot de la configuración de protección de ramas activada para la rama `main`:
+
+![GitHub Branch Protection Active](images/github-branch-protection-active.png)
+
 ### Explicación de cada una de las reglas de protección y su propósito:
 
 #### Rule 1: Pull Request Reviews
@@ -142,6 +146,14 @@ Screenshots de la configuración de protección de ramas en GitHub para la rama 
 - Crea una experiencia de aprendizaje auténtica cuando los aprendices descubren la propiedad del código
 - Asegura que solo cambios autorizados lleguen a los materiales de enseñanza principales
 - Enseña prácticas de desarrollo colaborativo con revisiones obligatorias
+
+### Screenshots de Configuración de Seguridad del Repositorio
+
+![Repository Collaborators Configuration](images/repo-configuration-1.png)
+
+![Repository Collaborators Configuration](images/repo-configuration-2.png)
+
+---
 
 ### Balance entre Seguridad y Flujo de Trabajo
 
@@ -250,6 +262,96 @@ To github.com:FerniCuesta/taller-master-ugr.git
 ### GitHub PR interface showing active protections
 
 ![Screenshot: GitHub PR with branch protection requirements](images/github-pr-branch-protection-active.png)
+
+### Configuración Detallada de Protecciones de Rama para Main
+
+**Patrón de rama**: `main`
+
+**Reglas Habilitadas**:
+
+| Regla                                                        | Estado | Descripción                                                                       |
+| ------------------------------------------------------------ | ------ | --------------------------------------------------------------------------------- |
+| Require a pull request before merging                        | ✅     | Se requiere un Pull Request para todos los cambios a main                         |
+| Require approvals (at least 1)                               | ✅     | Se requiere al menos 1 aprobación antes de poder hacer merge                      |
+| Dismiss stale pull request approvals when new commits pushed | ✅     | Las aprobaciones antiguas se descartan si se hacen nuevos commits al PR           |
+| Require review from Code Owners                              | ✅     | Se requiere revisión y aprobación de los propietarios del código según CODEOWNERS |
+| Require status checks to pass before merging                 | ✅     | Todas las verificaciones de estado (tests, linting, CI/CD) deben pasar            |
+| Require branches to be up to date before merging             | ✅     | La rama debe estar actualizada con la rama base antes de permitir el merge        |
+| Require conversation resolution before merging               | ✅     | Todos los comentarios y conversaciones en el PR deben estar resueltos             |
+| Require signed commits                                       | ✅     | Todos los commits deben estar firmados criptográficamente con GPG (nivel master)  |
+| Include administrators (enforce rules on admins too)         | ✅     | Las reglas de protección se aplican también a los administradores del repositorio |
+
+**Configuración Detallada de Cada Regla**:
+
+#### Require a pull request before merging
+
+- **Propósito**: Garantizar que todo código pase por un proceso de revisión formal antes de integrarse
+- **Efecto**: Nega direct pushes a main; todos los cambios deben venir a través de un PR
+- **Impacto**: Asegura trazabilidad e historial de cambios documentado
+
+#### Require approvals (at least 1)
+
+- **Propósito**: Asegurar que al menos otro desarrollador revise y apruebe los cambios
+- **Configuración**: Mínimo 1 aprobación requerida
+- **Efecto**: PR no puede ser mergeado sin aprovación explícita
+- **Impacto**: Control de calidad adicional, prevención de cambios unilaterales
+
+#### Dismiss stale pull request approvals when new commits pushed
+
+- **Propósito**: Garantizar que las aprobaciones sean siempre sobre la versión actual del código
+- **Cómo funciona**: Si el author hace un push de un nuevo commit después de recibir aprobación, esa aprobación se descarta
+- **Efecto**: Revisor debe aprobar nuevamente la versión actualizada
+- **Impacto**: Previene aprobaciones que se vuelven obsoletas por cambios posteriores
+
+#### Require review from Code Owners
+
+- **Propósito**: Asegurar que especialistas en áreas específicas del código revisen cambios relevantes
+- **Referencia**: Basado en patrones definidos en el archivo CODEOWNERS
+- **Cómo funciona**: GitHub automáticamente solicita revisión al propietario del código si el PR modifica archivos que correspond a ese owner
+- **Efecto**: Algunos PRs tienen requisito de aprobación de owner específico además de la aprobación general
+- **Impacto**: Distribución de responsabilidad de revisión, garantiza expertise en cambios críticos
+
+#### Require status checks to pass before merging
+
+- **Propósito**: Validación automática que el código cumple con estándares de calidad
+- **Status checks incluyen**:
+  - Pruebas unitarias e integración (npm test, pytest, etc.)
+  - Linting y análisis estático de código
+  - Cobertura de tests (si está configurado)
+  - Compilación exitosa
+  - Cualquier verificación de CI/CD personalizada
+- **Efecto**: PR no puede ser mergeado si algún check falla (rojo)
+- **Impacto**: Previene código defectuoso, asegura mantenimiento de estándares técnicos
+
+#### Require branches to be up to date before merging
+
+- **Propósito**: Garantizar que la rama está sincronizada con cambios recientes en main
+- **Cómo funciona**: Si otra rama fue mergeada a main después de que se creó este PR, se requiere que esta rama se actualice primero
+- **Efecto**: Previene conflictos de merge no detectados
+- **Impacto**: Asegura que el código es compatible con los cambios más recientes
+
+#### Require conversation resolution before merging
+
+- **Propósito**: Garantizar que todos los comentarios, preguntas y sugerencias en el PR sean abordados
+- **Cómo funciona**: Cualsquier comentario o revisión debe marcarse como "resuelto" antes de poder hacer merge
+- **Efecto**: Revisor puede requerir cambios; el author debe abordar o responder antes del merge
+- **Impacto**: Mejora calidad de comunicación en PRs, garantiza que feedback es considerado y no ignorado
+
+#### Require signed commits
+
+- **Propósito**: Verificar la autenticidad criptográfica de los commits (nivel master-of-the-universe)
+- **Cómo funciona**: Todos los commits en la rama deben tener firma válida de GPG
+- **Requisito**: Desarrollador debe tener clave GPG configurada y auto-firma habilitada en git config
+- **Efecto**: Commits sin firma válida serán rechazados en el push antes de llegar al server
+- **Impacto**: Garantía criptográfica de quién hizo exactamente qué cambios; prevención de suplantación de identidad
+
+#### Include administrators (enforce rules on admins too)
+
+- **Propósito**: Garantizar que incluso los o las administradoras del repositorio están sujetas a las mismas reglas
+- **Cómo funciona**: Por defecto, administradores pueden bypassear protecciones; esta opción lo previene
+- **Efecto**: Los admins deben crear PRs, obtener aprobaciones y pasar tests como cualquier otro developer
+- **Excepciones**: En emergencias, admins aún pueden usar force-push pero esto queda registrado en audit log
+- **Impacto**: Igualdad en cumplimiento de normas, mayor accountability, mejor cultura de seguridad
 
 ### Comprensión de los Requisitos de Aprobación
 
